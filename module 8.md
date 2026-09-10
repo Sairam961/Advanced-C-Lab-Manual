@@ -16,20 +16,27 @@ Algorithm:
  
 Program:
 
-//type your code here
-
-
-
+```
+#include <stdio.h>
+int main() {
+    int n;
+    scanf("%d", &n);
+    switch(n) {
+        case 5: printf("seventy one\n"); break;
+        case 6: printf("seventy two\n"); break;
+        case 13: printf("seventy three\n"); break;
+        default:
+            if(n > 13) printf("Greater than 13\n");
+            else printf("seventy nine\n");
+            break;
+    }
+    return 0;
+}
+```
 
 Output:
 
-
-//paste your output here
-
-
-
-
-
+<img width="1538" height="813" alt="image" src="https://github.com/user-attachments/assets/5bc2f79d-cc75-4722-b805-0dd334fdadf2" />
 
 Result:
 Thus, the program is verified successfully
@@ -47,20 +54,27 @@ Algorithm:
  
 Program:
 
-//type your code here
-
-
-
+```
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char a[50];
+    scanf("%s", a);
+    for(int i = 0; i <= 3; i++) {
+        int c = 0;
+        for(int j = 0; j < strlen(a); j++) {
+            if(a[j] - '0' == i) c++;
+        }
+        printf("%d ", c);
+    }
+    printf("\n");
+    return 0;
+}
+```
 
 Output:
 
-
-//paste your output here
-
-
-
-
-
+<img width="1501" height="730" alt="image" src="https://github.com/user-attachments/assets/eeebc7bf-88a3-4469-a73e-f3836237f537" />
 
 Result:
 Thus, the program is verified successfully
@@ -84,20 +98,46 @@ Free the memory allocated for each string in s Free the memory allocated for s
  
 Program:
 
-//type your code here
-
-
-
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int cmp(const void *a, const void *b) {
+    return strcmp(*(const char**)a, *(const char**)b);
+}
+int next_permutation(int n, char **s) {
+    int i = n - 2;
+    while(i >= 0 && strcmp(s[i], s[i+1]) >= 0) i--;
+    if(i < 0) return 0;
+    int j = n - 1;
+    while(strcmp(s[i], s[j]) >= 0) j--;
+    char *tmp = s[i]; s[i] = s[j]; s[j] = tmp;
+    for(int l = i + 1, r = n - 1; l < r; l++, r--) {
+        tmp = s[l]; s[l] = s[r]; s[r] = tmp;
+    }
+    return 1;
+}
+int main() {
+    int n;
+    scanf("%d", &n);
+    char **s = malloc(n * sizeof(char*));
+    for(int i = 0; i < n; i++) {
+        s[i] = malloc(11 * sizeof(char));
+        scanf("%s", s[i]);
+    }
+    qsort(s, n, sizeof(char*), cmp);
+    do {
+        for(int i = 0; i < n; i++) printf("%s%c", s[i], i == n - 1 ? '\n' : ' ');
+    } while(next_permutation(n, s));
+    for(int i = 0; i < n; i++) free(s[i]);
+    free(s);
+    return 0;
+}
+```
 
 Output:
 
-
-//paste your output here
-
-
-
-
-
+<img width="1707" height="1097" alt="image" src="https://github.com/user-attachments/assets/5620983e-5db7-44dd-a8f1-ab45dfbd9a6d" />
 
 Result:
 Thus, the program is verified successfully
@@ -117,20 +157,27 @@ Algorithm:
  
 Program:
 
-//type your code here
-
-
-
-
+```
+#include <stdio.h>
+int main() {
+    int n;
+    scanf("%d", &n);
+    int len = n * 2 - 1;
+    for(int i = 0; i < len; i++) {
+        for(int j = 0; j < len; j++) {
+            int min = i < j ? i : j;
+            min = min < len - i - 1 ? min : len - i - 1;
+            min = min < len - j - 1 ? min : len - j - 1;
+            printf("%d ", n - min);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+```
 Output:
 
-
-//paste your output here
-
-
-
-
-
+<img width="1507" height="926" alt="image" src="https://github.com/user-attachments/assets/28db0ecc-2323-4821-b916-0bcb254736ff" />
 
 Result:
 Thus, the program is verified successfully
@@ -156,47 +203,25 @@ o	Call the square() function and display the result.
 
 Program:
 
-//type your code here
-
-
-
+```
+#include <stdio.h>
+int square() {
+    int num;
+    scanf("%d", &num);
+    return num * num;
+}
+int main() {
+    int res = square();
+    printf("%d\n", res);
+    return 0;
+}
+```
 
 Output:
 
-
-//paste your output here
-
-
-
-
-
+<img width="1563" height="753" alt="image" src="https://github.com/user-attachments/assets/3448acf0-30e9-41ed-8024-fb3f7410fa70" />
 
 Result:
 Thus, the program is verified successfully
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
