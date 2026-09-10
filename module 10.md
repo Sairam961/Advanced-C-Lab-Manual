@@ -10,13 +10,40 @@ Algorithm:
  
 Program:
 
-//type your code here
-
+```
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    char data;
+    struct Node *next;
+} *head = NULL;
+void search(char key) {
+    struct Node *temp = head;
+    int pos = 1, found = 0;
+    while (temp != NULL) {
+        if (temp->data == key) {
+            printf("Element %c found at position %d\n", key, pos);
+            found = 1;
+            break;
+        }
+        temp = temp->next;
+        pos++;
+    }
+    if (!found) printf("Element not found\n");
+}
+int main() {
+    struct Node *n1 = (struct Node*)malloc(sizeof(struct Node));
+    struct Node *n2 = (struct Node*)malloc(sizeof(struct Node));
+    n1->data = 'A'; n1->next = n2;
+    n2->data = 'B'; n2->next = NULL;
+    head = n1;
+    search('B');
+    return 0;
+}
+```
 Output:
 
-//paste your output here
-
-
+<img width="1478" height="1079" alt="image" src="https://github.com/user-attachments/assets/42c66955-f3f8-4015-92a0-a62128fa67db" />
 
 Result:
 Thus, the program to search a given element in the given linked list is verified successfully.
@@ -34,16 +61,43 @@ Algorithm:
  
 Program:
 
-//type your code here
-
+```
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    char data;
+    struct Node *next;
+} *head = NULL;
+void insert(char val) {
+    struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = val;
+    newNode->next = NULL;
+    if (head == NULL) {
+        head = newNode;
+    } else {
+        struct Node *temp = head;
+        while (temp->next != NULL) temp = temp->next;
+        temp->next = newNode;
+    }
+}
+int main() {
+    insert('X');
+    insert('Y');
+    struct Node *temp = head;
+    while (temp != NULL) {
+        printf("%c ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+    return 0;
+}
+```
 Output:
 
-//paste your output here
+<img width="1352" height="1089" alt="image" src="https://github.com/user-attachments/assets/9802ec66-9050-47f9-922a-f3a26134df8b" />
 
- 
 Result:
 Thus, the program to insert a node in a linked list is verified successfully.
-
 
  
 EXP NO:18 C PROGRAM TO TRAVERSE A DOUBLY LINKED LIST
@@ -58,11 +112,36 @@ Algorithm:
  
 Program:
 
-//type your code here
-
+```
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node *prev;
+    struct Node *next;
+} *head = NULL;
+void traverse() {
+    struct Node *temp = head;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+int main() {
+    struct Node *n1 = (struct Node*)malloc(sizeof(struct Node));
+    struct Node *n2 = (struct Node*)malloc(sizeof(struct Node));
+    n1->data = 10; n1->prev = NULL; n1->next = n2;
+    n2->data = 20; n2->prev = n1; n2->next = NULL;
+    head = n1;
+    traverse();
+    return 0;
+}
+```
 Output:
 
-//paste your output here
+
+<img width="1469" height="910" alt="image" src="https://github.com/user-attachments/assets/accdd1d0-b74e-49dd-8a70-862116a6cf04" />
 
 
 Result:
@@ -83,23 +162,48 @@ Algorithm:
  
 Program:
 
-//type your code here
-
+```
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node *prev;
+    struct Node *next;
+} *head = NULL;
+void insert(int val) {
+    struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = val;
+    newNode->next = NULL;
+    newNode->prev = NULL;
+    if (head == NULL) {
+        head = newNode;
+    } else {
+        struct Node *temp = head;
+        while (temp->next != NULL) temp = temp->next;
+        temp->next = newNode;
+        newNode->prev = temp;
+    }
+}
+int main() {
+    insert(100);
+    insert(200);
+    struct Node *temp = head;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+    return 0;
+}
+```
 Output:
 
-//paste your output here
-
+<img width="1415" height="1115" alt="image" src="https://github.com/user-attachments/assets/024e64d6-edf3-4fbc-bfcf-e5402a7a23bf" />
 
 Result:
 Thus, the program to insert an element in doubly linked list is verified successfully.
 
-
-
-
 EXP NO:20 C FUNCTION TO DELETE A GIVEN ELEMENT IN THE GIVEN LINKED LIST
-
-
-
 
 Aim:
 To write a C function that deletes a given element from a linked list.
@@ -125,15 +229,55 @@ o	If the element is not found in any node, print a message indicating the elemen
 
 Program:
 
-//type your code here
-
+```
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node *next;
+} *head = NULL;
+void deleteNode(int val) {
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    struct Node *temp = head, *prev = NULL;
+    if (temp != NULL && temp->data == val) {
+        head = temp->next;
+        free(temp);
+        return;
+    }
+    while (temp != NULL && temp->data != val) {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (temp == NULL) {
+        printf("Element not found\n");
+        return;
+    }
+    prev->next = temp->next;
+    free(temp);
+}
+int main() {
+    struct Node *n1 = (struct Node*)malloc(sizeof(struct Node));
+    struct Node *n2 = (struct Node*)malloc(sizeof(struct Node));
+    n1->data = 5; n1->next = n2;
+    n2->data = 10; n2->next = NULL;
+    head = n1;
+    deleteNode(5);
+    struct Node *temp = head;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+    return 0;
+}
+```
 Output:
 
-//paste your output here
 
-
-
-
+<img width="1433" height="1096" alt="image" src="https://github.com/user-attachments/assets/0fa6e508-74db-40c6-8047-60c983f5b116" />
 
 Result:
 Thus, the function that deletes a given element from a linked list is verified successfully.
